@@ -1,0 +1,1 @@
+The new ShowcaseView (v5.0)
