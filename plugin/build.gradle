@@ -36,21 +36,19 @@ uploadArchives {
 
     repositories {
         mavenDeployer {
-            final String mavenServer = '172.16.0.236:8080';
-
-            repository(url: "http://${mavenServer}/nexus/content/repositories/releases/") {
-                authentication(userName: 'deployment', password: 'deployment123')
+            repository(url: REPOSITORY_RELEASES_URL) {
+                authentication(userName: REPOSITORY_USERNAME, password: REPOSITORY_PASSWORD)
             }
 
-            snapshotRepository(url: "http://${mavenServer}/nexus/content/repositories/snapshots/") {
-                authentication(userName: 'deployment', password: 'deployment123')
+            snapshotRepository(url: REPOSITORY_SNAPSHOTS_URL) {
+                authentication(userName: REPOSITORY_USERNAME, password: REPOSITORY_PASSWORD)
             }
 
             final boolean snapshot = true
 
-            pom.groupId = 'com.xujiaao.android.plugin.idea'
-            pom.artifactId = 'aarLinkSources'
-            pom.version = '1.0.0'
+            pom.groupId = GROUP_ID
+            pom.artifactId = ARTIFACT_ID
+            pom.version = VERSION
 
             if (snapshot) pom.version += '-SNAPSHOT'
             pom.project {
