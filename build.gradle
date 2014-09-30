@@ -1,0 +1,64 @@
+apply plugin: 'java-gradle-plugin'
+apply plugin: 'groovy'
+apply plugin: 'maven'
+
+task sourcesJar(type: Jar) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
+artifacts {
+    archives sourcesJar
+}
+
+dependencies {
+    compile localGroovy()
+}
+
+uploadArchives {
+    dependsOn ':build'
+
+    repositories {
+        mavenDeployer {
+            final String mavenServer = '172.16.0.236:8080';
+
+            repository(url: "http://${mavenServer}/nexus/content/repositories/releases/") {
+                authentication(userName: 'deployment', password: 'deployment123')
+            }
+
+            snapshotRepository(url: "http://${mavenServer}/nexus/content/repositories/snapshots/") {
+                authentication(userName: 'deployment', password: 'deployment123')
+            }
+
+            final boolean snapshot = true
+
+            pom.groupId = 'com.neulion.android.plugin.idea'
+            pom.artifactId = 'aarLinkSources'
+            pom.version = '1.0.0'
+
+            if (snapshot) pom.version += '-SNAPSHOT'
+            pom.project {
+                name 'AAR Link Sources'
+                description "Link Sources/Javadoc for .aar files in AndroidStudio/Intellij"
+
+                licenses {
+                    license {
+                        name 'The Apache Software License, Version 2.0'
+                        url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                        distribution 'repo'
+                    }
+                }
+
+                developers {
+                    developer {
+                        email 'real.xu@neulion.com.cn'
+                    }
+                }
+            }
+        }
+    }
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.1'
+}
