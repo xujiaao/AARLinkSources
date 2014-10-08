@@ -1,6 +1,6 @@
 AARLinkSources Plugin
 ====
-The AARLinkSources Plugin is designed to attach sources/javadoc for .aar dependencies in AndroidStudio.
+The AARLinkSources Plugin is designed to attach sources for .aar dependencies in AndroidStudio.
 
 Usage
 ----

@@ -1,0 +1,29 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+
+    dependencies {
+        classpath 'com.android.tools.build:gradle:0.13.0'
+    }
+}
+
+allprojects {
+    repositories {
+        jcenter()
+    }
+}
+
+// -----------------------------------------------------------------------------------------------------------------------------------------
+// AAR Link Sources
+// -----------------------------------------------------------------------------------------------------------------------------------------
+
+buildscript {
+    repositories {
+        maven { url 'https://raw.github.com/xujiaao/mvn-repository/master/releases' }
+    }
+
+    dependencies {
+        classpath 'com.github.xujiaao:aarLinkSources:1.0.0'
+    }
+}
