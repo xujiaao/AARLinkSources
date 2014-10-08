@@ -23,7 +23,7 @@ apply plugin: 'aar-link-sources'
 
 dependencies {
     compile 'com.android.support:support-v4:20.0.0'
-    aarLinkSources 'com.android.support:support-v4:20.0.0:sources@jar'
+    aarLinkSources 'com.android.support:support-v4:20.0.0:**sources@jar**'
 }
 ~~~
 
