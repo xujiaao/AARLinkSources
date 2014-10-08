@@ -16,6 +16,7 @@
 
 apply plugin: 'maven'
 apply plugin: 'groovy'
+apply plugin: 'signing'
 apply plugin: 'java-gradle-plugin'
 
 task sourcesJar(type: Jar) {
@@ -32,7 +33,7 @@ dependencies {
 }
 
 uploadArchives {
-    dependsOn ':build'
+    dependsOn tasks.build
 
     repositories {
         mavenDeployer {
@@ -44,28 +45,35 @@ uploadArchives {
                 authentication(userName: REPOSITORY_USERNAME, password: REPOSITORY_PASSWORD)
             }
 
-            final boolean snapshot = true
-
-            pom.groupId = GROUP_ID
-            pom.artifactId = ARTIFACT_ID
+            pom.groupId = GROUP
+            pom.artifactId = POM_ARTIFACT_ID
             pom.version = VERSION
 
-            if (snapshot) pom.version += '-SNAPSHOT'
             pom.project {
-                name 'AAR Link Sources'
-                description "Link Sources/Javadoc for .aar files in AndroidStudio/Intellij"
+                url POM_URL
+                name POM_NAME
+                packaging POM_PACKAGING
+                description POM_DESCRIPTION
+
+                scm {
+                    url POM_SCM_URL
+                    connection POM_SCM_CONNECTION
+                    developerConnection POM_SCM_DEV_CONNECTION
+                }
 
                 licenses {
                     license {
-                        name 'The Apache Software License, Version 2.0'
-                        url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
-                        distribution 'repo'
+                        name POM_LICENCE_NAME
+                        url POM_LICENCE_URL
+                        distribution POM_LICENCE_DIST
                     }
                 }
 
                 developers {
                     developer {
-                        email 'real.xujiaao@gmail.com'
+                        id POM_DEVELOPER_ID
+                        name POM_DEVELOPER_NAME
+                        email POM_DEVELOPER_EMAIL
                     }
                 }
             }
