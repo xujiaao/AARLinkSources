@@ -4,7 +4,7 @@ The AARLinkSources Plugin is designed to attach sources for .aar dependencies in
 
 Setup
 ----
-~~~
+~~~groovy
 buildscript {
     repositories {
         maven { url 'https://raw.github.com/xujiaao/mvn-repository/master/releases' }
@@ -18,7 +18,7 @@ buildscript {
 
 Usage
 ----
-~~~
+~~~groovy
 apply plugin: 'aar-link-sources'
 
 dependencies {
