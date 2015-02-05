@@ -29,7 +29,7 @@ dependencies {
 
 Tips
 ----
-If you want to see the debug log, just add this line to your build script.
+If you want to see the debug log, just add this line in your build script.
 ~~~groovy
 rootProject.aarLinkSources.debug = true
 ~~~
