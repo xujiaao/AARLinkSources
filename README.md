@@ -1,3 +1,6 @@
+[![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-AARLinkSources-brightgreen.svg?style=flat)](https://android-arsenal.com/details/1/1288)
+
+
 AARLinkSources Plugin
 ====
 The AARLinkSources Plugin is designed to attach sources for .aar dependencies in AndroidStudio.
@@ -39,7 +42,6 @@ Output:
 [AARLinkSources] [Info] Link sources: support-v4-21.0.3-sources.jar
 [AARLinkSources] [Info] Link success: support_v4_21_0_3.xml
 ~~~
-
 
 
 
