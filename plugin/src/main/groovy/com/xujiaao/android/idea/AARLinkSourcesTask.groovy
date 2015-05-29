@@ -20,17 +20,10 @@ import org.gradle.api.DefaultTask
 import org.gradle.api.tasks.TaskAction
 
 class AARLinkSourcesTask extends DefaultTask {
-    private static final String TAG = 'AARLinkSources'
-
-    boolean debug = false;
 
     // -------------------------------------------------------------------------------------------------------------------------------------
     // Interfaces
     // -------------------------------------------------------------------------------------------------------------------------------------
-
-    void debug(boolean enabled) {
-        debug = enabled
-    }
 
     void linkSources(File file) {
         link file, 'sources'
@@ -60,9 +53,7 @@ class AARLinkSourcesTask extends DefaultTask {
 
                 new XmlNodePrinter(new PrintWriter(new FileWriter(xml))).print(root)
 
-                if (debug) {
-                    println "[${TAG}] [Info] Link success: ${xml.name}"
-                }
+                project.logger.debug("Link success: {}", xml.name)
             }
         }
     }
@@ -77,9 +68,7 @@ class AARLinkSourcesTask extends DefaultTask {
         String name = file.name
 
         if (!processedFiles.contains(name)) {
-            if (debug) {
-                println "[${TAG}] [Info] Link ${type}: ${name}"
-            }
+            project.logger.debug("Link {}: {}", type, name)
 
             processedFiles.add(name)
 
@@ -100,8 +89,8 @@ class AARLinkSourcesTask extends DefaultTask {
                 if (xml.exists() && xml.isFile()) {
                     inputs.property "${xml.name}:${type}".toString(), generatePath(file)
                     outputs.file xml
-                } else if (debug) {
-                    println "[${TAG}] [Error] No such file: ${xml.absolutePath}"
+                } else {
+                    project.logger.debug("No such file: {}", xml.absolutePath)
                 }
             }
         }
