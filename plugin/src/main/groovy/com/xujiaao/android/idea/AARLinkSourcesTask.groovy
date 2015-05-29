@@ -53,7 +53,8 @@ class AARLinkSourcesTask extends DefaultTask {
                 def path = null;
                 if ((path = inputs.getProperties().get("${xml.name}:sources".toString()))) {
                     appendPath(root.library[0].SOURCES[0], path)
-                } else if ((path = inputs.getProperties().get("${xml.name}:javadoc".toString()))) {
+                }
+                if ((path = inputs.getProperties().get("${xml.name}:javadoc".toString()))) {
                     appendPath(root.library[0].JAVADOC[0], path)
                 }
 
