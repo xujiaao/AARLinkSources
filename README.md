@@ -23,11 +23,6 @@ Usage
 ----
 ~~~groovy
 apply plugin: 'aar-link-sources'
-
-dependencies {
-    compile 'com.android.support:support-v4:21.0.3'
-    aarLinkSources 'com.android.support:support-v4:21.0.3:sources@jar'
-}
 ~~~
 
 Tips
