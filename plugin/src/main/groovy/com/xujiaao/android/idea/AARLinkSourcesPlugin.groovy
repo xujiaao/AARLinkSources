@@ -18,41 +18,31 @@ package com.xujiaao.android.idea
 
 import org.gradle.api.Plugin
 import org.gradle.api.Project
-import org.gradle.api.artifacts.ResolvedArtifact
-import org.gradle.internal.component.external.model.DefaultModuleComponentIdentifier
-import org.gradle.jvm.JvmLibrary
-import org.gradle.language.base.artifact.SourcesArtifact
-import org.gradle.language.java.artifact.JavadocArtifact
 
 class AARLinkSourcesPlugin implements Plugin<Project> {
     @Override
     void apply(Project project) {
+        project.configurations.create('aarLinkSources')
+        project.configurations.create('aarLinkJavadoc')
 
         if (!project.rootProject.tasks.hasProperty('aarLinkSources')) {
             final AARLinkSourcesTask aarLinkSourcesTask = project.rootProject.tasks.create('aarLinkSources', AARLinkSourcesTask)
 
             project.rootProject.gradle.projectsEvaluated {
-                def artifacts = getProjectDependencies(project).findAll { it.type.equals("aar") }
-                        .unique()
+                project.rootProject.allprojects.each {
+                    if (it.configurations.hasProperty('aarLinkSources')) {
+                        it.configurations.aarLinkSources.each { File file ->
+                            aarLinkSourcesTask.linkSources file
+                        }
 
-                def identifiers = artifacts.collect {
-                    new DefaultModuleComponentIdentifier(it.moduleVersion.id.group, it.moduleVersion.id.name, it.moduleVersion.id.version)
-                }
-
-                project.dependencies.createArtifactResolutionQuery().forComponents(identifiers)
-                        .withArtifacts(JvmLibrary, SourcesArtifact, JavadocArtifact)
-                        .execute().resolvedComponents.each {
-                    it.getArtifacts(SourcesArtifact).each { aarLinkSourcesTask.linkSources it.file }
-                    it.getArtifacts(JavadocArtifact).each { aarLinkSourcesTask.linkJavadoc it.file }
+                        it.configurations.aarLinkJavadoc.each { File file ->
+                            aarLinkSourcesTask.linkJavadoc file
+                        }
+                    }
                 }
 
                 aarLinkSourcesTask.executeWithoutThrowingTaskFailure()
             }
         }
-    }
-
-    private static Collection<ResolvedArtifact> getProjectDependencies(Project project) {
-        return project.rootProject.allprojects.collectMany { it.configurations }
-                .collectMany { it.resolvedConfiguration.resolvedArtifacts }
     }
 }
