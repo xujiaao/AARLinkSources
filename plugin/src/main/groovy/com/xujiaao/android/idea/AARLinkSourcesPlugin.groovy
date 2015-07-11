@@ -46,7 +46,7 @@ class AARLinkSourcesPlugin implements Plugin<Project> {
                     it.getArtifacts(JavadocArtifact).each { aarLinkSourcesTask.linkJavadoc it.file }
                 }
 
-                aarLinkSourcesTask.executeWithoutThrowingTaskFailure()
+                aarLinkSourcesTask.linkSources()
             }
         }
     }
