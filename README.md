@@ -1,6 +1,6 @@
-[![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-AARLinkSources-brightgreen.svg?style=flat)](https://android-arsenal.com/details/1/1288)
-
 ## This plugin in deprecated. AndroidStudio 1.4 has this support built in.
+
+[![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-AARLinkSources-brightgreen.svg?style=flat)](https://android-arsenal.com/details/1/1288)
 
 AARLinkSources Plugin
 ====
